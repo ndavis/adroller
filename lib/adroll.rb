@@ -6,5 +6,26 @@ end
 
 module AdRoll
   module Api
+      @version = 'v1'
+
+      def self.user_name
+        ENV['USERNAME']
+      end
+
+      def self.password
+        ENV['PASSWORD']
+      end
+
+      def self.base_url
+        'https://api.adroll.com/'
+      end
+
+      def self.version(value = nil)
+        @version = value ? value : @version
+      end
+
+      def self.root_url
+        "#{base_url}#{version}"
+      end
   end
 end
