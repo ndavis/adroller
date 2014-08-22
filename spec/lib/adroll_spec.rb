@@ -14,7 +14,7 @@ describe AdRoll::Api do
   end
 
   it 'should return the base url for api endpoints' do
-    expect(AdRoll::Api.base_url).to eq 'https://api.adroll.com/'
+    expect(AdRoll::Api.base_url).to eq 'https://api.adroll.com'
   end
 
   it 'should return the latest api version' do
