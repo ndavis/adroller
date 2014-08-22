@@ -17,7 +17,7 @@ module AdRoll
       end
 
       def self.base_url
-        'https://api.adroll.com/'
+        'https://api.adroll.com'
       end
 
       def self.version(value = nil)
@@ -25,7 +25,7 @@ module AdRoll
       end
 
       def self.root_url
-        "#{base_url}#{version}"
+        File.join(base_url, version)
       end
   end
 end

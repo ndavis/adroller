@@ -11,7 +11,7 @@ module AdRoll
       end
 
       def self.service_url
-        "#{AdRoll::Api.root_url}/#{self.to_s.demodulize.downcase}/"
+        File.join(AdRoll::Api.root_url, self.to_s.demodulize.downcase)
       end
 
       def self.create(params={})
