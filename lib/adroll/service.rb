@@ -2,7 +2,6 @@ module AdRoll
   module Api
     class Service
       include HTTParty
-
       def initialize(params)
         params.each do |key, value|
           self.class.send(:attr_accessor, key)
@@ -15,7 +14,8 @@ module AdRoll
       end
 
       def self.create(params={})
-        self.post("#{service_url}#{__method__}", {query: params})
+        response = post(File.join(service_url, __method__.to_s), {query: params})
+        new(JSON.parse(response))
       end
 
     end

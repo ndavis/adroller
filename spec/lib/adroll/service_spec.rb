@@ -8,6 +8,10 @@ describe AdRoll::Api::Service do
     {param_1: '1', param_2: '2'}
   end
 
+  let(:create_response) do
+    {response_1: 123, response_2: 456 }.to_json
+  end
+
   it 'should return its service url' do
     expect(AdRoll::Api::Service.service_url).to eq 'https://api.adroll.com/v1/service'
   end
@@ -24,7 +28,7 @@ describe AdRoll::Api::Service do
     before do
       stub_request(:post, "#{AdRoll::Api::Service.service_url}/create")
         .with(query: create_params)
-        .to_return(:status => 200, :body => "")
+        .to_return(:status => 200, :body => create_response)
     end
 
     it 'should make a http request with given parameters' do
@@ -32,7 +36,14 @@ describe AdRoll::Api::Service do
       expect(WebMock).to have_requested(:post, "#{AdRoll::Api::Service.service_url}/create").with(query: create_params)
     end
 
+    it 'should return an instance of the Service object' do
+      new_service = AdRoll::Api::Service.create(create_params)
+
+      expect(new_service.respond_to?(:response_1)).to be true
+      expect(new_service.respond_to?(:response_2)).to be true
+      expect(new_service.respond_to?(:response_3)).to be false
+      expect(new_service.response_1).to eq 123
+      expect(new_service.response_2).to eq 456
+    end
   end
-
-
 end
