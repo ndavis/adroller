@@ -18,6 +18,10 @@ module AdRoll
         new(JSON.parse(response))
       end
 
+      def self.edit(params={})
+        response = put(File.join(service_url, __method__.to_s), {query: params})
+        new(JSON.parse(response))
+      end
     end
   end
 end
