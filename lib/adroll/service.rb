@@ -22,6 +22,11 @@ module AdRoll
         response = put(File.join(service_url, __method__.to_s), {query: params})
         new(JSON.parse(response))
       end
+
+      def self.get(params={})
+        response = HTTParty.get(File.join(service_url, __method__.to_s), {query: params})
+        new(JSON.parse(response))
+      end
     end
   end
 end

@@ -69,4 +69,27 @@ describe AdRoll::Api::Service do
       expect(new_service.response_2).to eq 456
     end
   end
+
+  describe '#get' do
+    before do
+      stub_request(:get, "#{AdRoll::Api::Service.service_url}/get")
+        .with(query: request_params)
+        .to_return(:status => 200, :body => request_response)
+    end
+
+    it 'should make a http request with given parameters' do
+      AdRoll::Api::Service.get(request_params)
+      expect(WebMock).to have_requested(:get, "#{AdRoll::Api::Service.service_url}/get").with(query: request_params)
+    end
+
+    it 'should return an instance of the Service object' do
+      new_service = AdRoll::Api::Service.get(request_params)
+
+      expect(new_service.respond_to?(:response_1)).to be true
+      expect(new_service.respond_to?(:response_2)).to be true
+      expect(new_service.respond_to?(:response_3)).to be false
+      expect(new_service.response_1).to eq 123
+      expect(new_service.response_2).to eq 456
+    end
+  end
 end
