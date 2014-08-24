@@ -6,26 +6,29 @@ end
 
 module AdRoll
   module Api
-      @version = 'v1'
+    @version = 'v1'
 
-      def self.user_name
+    class << self
+
+      def user_name
         ENV['USERNAME']
       end
 
-      def self.password
+      def password
         ENV['PASSWORD']
       end
 
-      def self.base_url
+      def base_url
         'https://api.adroll.com'
       end
 
-      def self.version(value = nil)
+      def version(value = nil)
         @version = value ? value : @version
       end
 
-      def self.root_url
+      def root_url
         File.join(base_url, version)
       end
+    end
   end
 end
