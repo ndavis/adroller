@@ -92,4 +92,16 @@ describe AdRoll::Api::Service do
       expect(new_service.response_2).to eq 456
     end
   end
+
+  describe '#define_service_method' do
+    it 'should create the class method specified' do
+      AdRoll::Api::Service.define_service_method('my_method')
+
+      expect(AdRoll::Api::Service.respond_to?(:my_method)).to be true
+      expect(AdRoll::Api::Service.respond_to?(:bad_method)).to be false
+      expect(service_object.respond_to?(:my_method)).to be false
+      expect(AdRoll::Api::Service.instance_methods.include?(:my_method)).to be false
+      expect(AdRoll::Api::Service.singleton_methods.include?(:my_method)).to be true
+    end
+  end
 end

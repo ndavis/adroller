@@ -9,24 +9,34 @@ module AdRoll
         end
       end
 
-      def self.service_url
-        File.join(AdRoll::Api.root_url, self.to_s.demodulize.downcase)
+      class << self
+
+        def service_url
+          File.join(AdRoll::Api.root_url, self.to_s.demodulize.downcase)
+        end
+
+        def create(params={})
+          response = post(File.join(service_url, __method__.to_s), {query: params})
+          new(JSON.parse(response))
+        end
+
+        def edit(params={})
+          response = put(File.join(service_url, __method__.to_s), {query: params})
+          new(JSON.parse(response))
+        end
+
+        def get(params={})
+          response = HTTParty.get(File.join(service_url, __method__.to_s), {query: params})
+          new(JSON.parse(response))
+        end
+
+        def define_service_method(method_name)
+          define_singleton_method(method_name) do
+
+          end
+        end
       end
 
-      def self.create(params={})
-        response = post(File.join(service_url, __method__.to_s), {query: params})
-        new(JSON.parse(response))
-      end
-
-      def self.edit(params={})
-        response = put(File.join(service_url, __method__.to_s), {query: params})
-        new(JSON.parse(response))
-      end
-
-      def self.get(params={})
-        response = HTTParty.get(File.join(service_url, __method__.to_s), {query: params})
-        new(JSON.parse(response))
-      end
     end
   end
 end

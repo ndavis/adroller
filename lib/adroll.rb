@@ -1,4 +1,5 @@
 require 'httparty'
+require 'yaml'
 
 Dir[File.dirname(__FILE__) + '/adroll/*.rb'].each do |file|
   require file
@@ -29,6 +30,29 @@ module AdRoll
       def root_url
         File.join(base_url, version)
       end
+
+      def parse_yaml
+        YAML.load_file 'lib/api_specifications.yml'
+      end
+
+      def api_services
+        [
+          Ad, AdGroup, Advertisable, Campaign, Event, Invoice, MobileApp,
+          Organization, PaymentMethod, Pixel, Report, Rule, Segment, User
+        ]
+      end
+
+      def define_methods_for_services
+        parse_yaml.each do |service_class, method_list|
+          next if method_list.nil?
+
+          method_list.each do |method_spec|
+            method_name =  method_spec.keys.first
+            AdRoll::Api.const_get(service_class).define_service_method(method_name)
+          end
+        end
+      end
     end
+
   end
 end
