@@ -32,21 +32,15 @@ describe AdRoll::Api do
   end
 
   describe 'Api Specification Yaml' do
-
-    it 'should read and parse the api yaml file' do
-      expect(AdRoll::Api.parse_yaml).to be_a Hash
-    end
-
-    it 'should have a key for each Service subclass' do
-      AdRoll::Api.api_services.each do |service|
-        expect(AdRoll::Api.parse_yaml.keys.include?(service.to_s.demodulize)).to be true
-      end
+    before do
+      AdRoll::Api.const_set("Service1", Class.new(AdRoll::Api::Service))
+      AdRoll::Api.const_set("Service2", Class.new(AdRoll::Api::Service))
+      AdRoll::Api.define_methods_for_services('spec/support/api_specifications.yml')
     end
 
     it 'should define the methods specified by a service' do
-      AdRoll::Api.define_methods_for_services
-      expect(AdRoll::Api::Organization.respond_to?(:get_advertisables)).to be true
-      expect(AdRoll::Api::Organization.respond_to?(:no_method)).to be false
+      expect(AdRoll::Api::Service2.respond_to?(:method_1)).to be true
+      expect(AdRoll::Api::Service2.respond_to?(:no_method)).to be false
     end
   end
 end

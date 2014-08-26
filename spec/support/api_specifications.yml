@@ -1,0 +1,9 @@
+Service1:
+Service2:
+  - method_1:
+      results: 'Array'
+      service_type: 'Service1'
+      request_type: 'get'
+  - method_2:
+      results: 'Hash'
+      request_type: 'post'

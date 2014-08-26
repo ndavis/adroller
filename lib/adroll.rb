@@ -31,10 +31,6 @@ module AdRoll
         File.join(base_url, version)
       end
 
-      def parse_yaml
-        YAML.load_file 'lib/api_specifications.yml'
-      end
-
       def api_services
         [
           Ad, AdGroup, Advertisable, Campaign, Event, Invoice, MobileApp,
@@ -42,8 +38,8 @@ module AdRoll
         ]
       end
 
-      def define_methods_for_services
-        parse_yaml.each do |service_class, method_list|
+      def define_methods_for_services(yaml_file)
+        YAML.load_file(yaml_file).each do |service_class, method_list|
           next if method_list.nil?
 
           method_list.each do |method_spec|
