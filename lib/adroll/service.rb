@@ -30,13 +30,27 @@ module AdRoll
           new(JSON.parse(response))
         end
 
-        def define_service_method(method_name)
-          define_singleton_method(method_name) do
+        def define_service_method(method_name, return_type = 'Hash')
 
+          case return_type
+          when 'Array'
+            define_singleton_method(method_name) do
+              []
+            end
+
+         when 'Hash'
+            define_singleton_method(method_name) do
+              {}
+            end
+
+          else
+            define_singleton_method(method_name) do
+
+            end
           end
         end
       end
-
     end
+
   end
 end

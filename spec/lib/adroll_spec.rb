@@ -33,8 +33,6 @@ describe AdRoll::Api do
 
   describe 'Api Specification Yaml' do
     before do
-      AdRoll::Api.const_set("Service1", Class.new(AdRoll::Api::Service))
-      AdRoll::Api.const_set("Service2", Class.new(AdRoll::Api::Service))
       AdRoll::Api.define_methods_for_services('spec/support/api_specifications.yml')
     end
 

@@ -44,8 +44,11 @@ module AdRoll
           next if method_list.nil?
 
           method_list.each do |method_spec|
+
             method_name =  method_spec.keys.first
-            AdRoll::Api.const_get(service_class).define_service_method(method_name)
+            method_attrs = method_spec[method_name]
+
+            AdRoll::Api.const_get(service_class).define_service_method(method_name, method_attrs['results'])
           end
         end
       end

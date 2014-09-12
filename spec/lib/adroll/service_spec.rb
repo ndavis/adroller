@@ -106,5 +106,19 @@ describe AdRoll::Api::Service do
       expect(service_object.respond_to?(:my_method)).to be false
     end
 
+    context 'of a method with a return type' do
+
+      before do
+        AdRoll::Api.define_methods_for_services('spec/support/api_specifications.yml')
+      end
+
+      it 'should return an array when return_type is Array' do
+        expect(AdRoll::Api::Service2.method_1).to be_a Array
+      end
+      it 'should return a hash when return_type is Hash' do
+        expect(AdRoll::Api::Service2.method_2).to be_a Hash
+      end
+    end
+
   end
 end
