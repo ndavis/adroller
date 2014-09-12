@@ -1,6 +1,7 @@
 require 'adroll'
-require 'webmock/rspec'
+require 'byebug'
 require 'factory_girl'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

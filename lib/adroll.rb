@@ -1,4 +1,5 @@
 require 'httparty'
+require 'byebug'
 require 'yaml'
 
 Dir[File.dirname(__FILE__) + '/adroll/*.rb'].each do |file|
