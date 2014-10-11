@@ -33,7 +33,8 @@ describe AdRoll::Api do
 
   describe 'Api Specification Yaml' do
     before do
-      AdRoll::Api.define_methods_for_services('spec/support/api_specifications.yml')
+      AdRoll::Api
+        .define_methods_for_services('spec/support/api_specifications.yml')
     end
 
     it 'should define the methods specified by a service' do

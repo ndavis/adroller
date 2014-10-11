@@ -11,7 +11,6 @@ module AdRoll
     @version = 'v1'
 
     class << self
-
       def user_name
         ENV['USERNAME']
       end
@@ -48,11 +47,12 @@ module AdRoll
             method_name =  method_spec.keys.first
             method_attrs = method_spec[method_name]
 
-            AdRoll::Api.const_get(service_class).define_service_method(method_name, method_attrs['results'])
+            AdRoll::Api
+              .const_get(service_class)
+              .define_service_method(method_name, method_attrs['results'])
           end
         end
       end
     end
-
   end
 end

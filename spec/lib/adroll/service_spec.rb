@@ -1,39 +1,47 @@
 require 'spec_helper'
 
 describe AdRoll::Api::Service do
-  let(:service){ FactoryGirl.build(:service) }
-  let(:service_object){ FactoryGirl.build(:service, {attr_1: 'value 1', attr_2: 'value 2'}) }
+  let(:service) { FactoryGirl.build(:service) }
+  let(:service_url) { AdRoll::Api::Service.service_url }
+  let(:service_object)do
+    FactoryGirl.build(:service, attr_1: 'value 1', attr_2: 'value 2')
+  end
 
   let(:request_params) do
-    {param_1: '1', param_2: '2'}
+    { param_1: '1', param_2: '2' }
   end
 
   let(:request_response) do
-    {response_1: 123, response_2: 456 }.to_json
+    { response_1: 123, response_2: 456 }.to_json
   end
 
-  it 'should return its service url' do
-    expect(AdRoll::Api::Service.service_url).to eq 'https://api.adroll.com/v1/service'
+  describe '#initialize' do
+    it 'should create attributes for each hash key/value pair' do
+      expect(service_object.respond_to?(:attr_1)).to be true
+      expect(service_object.respond_to?(:attr_2)).to be true
+      expect(service_object.respond_to?(:attr_3)).to be false
+      expect(service_object.attr_1).to eq 'value 1'
+      expect(service_object.attr_2).to eq 'value 2'
+    end
   end
 
-  it 'should create attributes for each hash key/value pair' do
-    expect(service_object.respond_to?(:attr_1)).to be true
-    expect(service_object.respond_to?(:attr_2)).to be true
-    expect(service_object.respond_to?(:attr_3)).to be false
-    expect(service_object.attr_1).to eq 'value 1'
-    expect(service_object.attr_2).to eq 'value 2'
+  describe '#service_url' do
+    it 'should return its service url' do
+      expect(AdRoll::Api::Service.service_url).to eq 'https://api.adroll.com/v1/service'
+    end
   end
 
   describe '#create' do
     before do
-      stub_request(:post, "#{AdRoll::Api::Service.service_url}/create")
+      stub_request(:post, "#{service_url}/create")
         .with(query: request_params)
-        .to_return(:status => 200, :body => request_response)
+        .to_return(status: 200, body: request_response)
     end
 
     it 'should make a http request with given parameters' do
       AdRoll::Api::Service.create(request_params)
-      expect(WebMock).to have_requested(:post, "#{AdRoll::Api::Service.service_url}/create").with(query: request_params)
+      expect(WebMock).to have_requested(:post, "#{service_url}/create")
+        .with(query: request_params)
     end
 
     it 'should return an instance of the Service object' do
@@ -49,14 +57,15 @@ describe AdRoll::Api::Service do
 
   describe '#edit' do
     before do
-      stub_request(:put, "#{AdRoll::Api::Service.service_url}/edit")
+      stub_request(:put, "#{service_url}/edit")
         .with(query: request_params)
-        .to_return(:status => 200, :body => request_response)
+        .to_return(status: 200, body: request_response)
     end
 
     it 'should make a http request with given parameters' do
       AdRoll::Api::Service.edit(request_params)
-      expect(WebMock).to have_requested(:put, "#{AdRoll::Api::Service.service_url}/edit").with(query: request_params)
+      expect(WebMock).to have_requested(:put, "#{service_url}/edit")
+        .with(query: request_params)
     end
 
     it 'should return an instance of the Service object' do
@@ -72,14 +81,15 @@ describe AdRoll::Api::Service do
 
   describe '#get' do
     before do
-      stub_request(:get, "#{AdRoll::Api::Service.service_url}/get")
+      stub_request(:get, "#{service_url}/get")
         .with(query: request_params)
-        .to_return(:status => 200, :body => request_response)
+        .to_return(status: 200, body: request_response)
     end
 
     it 'should make a http request with given parameters' do
       AdRoll::Api::Service.get(request_params)
-      expect(WebMock).to have_requested(:get, "#{AdRoll::Api::Service.service_url}/get").with(query: request_params)
+      expect(WebMock).to have_requested(:get, "#{service_url}/get")
+        .with(query: request_params)
     end
 
     it 'should return an instance of the Service object' do
@@ -97,28 +107,28 @@ describe AdRoll::Api::Service do
 
     it 'should create the class method specified' do
       AdRoll::Api::Service.define_service_method('my_method')
-
       expect(AdRoll::Api::Service.respond_to?(:my_method)).to be true
-      expect(AdRoll::Api::Service.singleton_methods.include?(:my_method)).to be true
-
-      expect(AdRoll::Api::Service.instance_methods.include?(:my_method)).to be false
-      expect(AdRoll::Api::Service.respond_to?(:bad_method)).to be false
-      expect(service_object.respond_to?(:my_method)).to be false
     end
 
-    context 'of a method with a return type' do
+    context 'when the method specifies a return type' do
 
       before do
-        AdRoll::Api.define_methods_for_services('spec/support/api_specifications.yml')
+        AdRoll::Api
+          .define_methods_for_services('spec/support/api_specifications.yml')
       end
 
-      it 'should return an array when return_type is Array' do
+      it 'should return an array if return_type is Array' do
         expect(AdRoll::Api::Service2.method_1).to be_a Array
       end
-      it 'should return a hash when return_type is Hash' do
+
+      it 'should return a hash if return_type is Hash' do
         expect(AdRoll::Api::Service2.method_2).to be_a Hash
       end
     end
 
+    context "the method's return type" do
+      it 'should make a post request when request_type is post' do
+      end
+    end
   end
 end
