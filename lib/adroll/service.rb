@@ -12,7 +12,7 @@ module AdRoll
 
       class << self
         def service_url
-          File.join(AdRoll::Api.root_url, to_s.demodulize.downcase)
+          File.join(AdRoll::Api.base_url, to_s.demodulize.downcase)
         end
 
         def create(params = {})
@@ -34,31 +34,10 @@ module AdRoll
           new(JSON.parse(response))
         end
 
-        def define_service_method_hash(method_name)
-          define_singleton_method(method_name) do
-            {}
-          end
-        end
-
-        def define_service_method_array(method_name)
-          define_singleton_method(method_name) do
-            []
-          end
-        end
-
-        def define_service_method(method_name, return_type = 'Hash')
-          case return_type
-          when 'Array'
-
-            define_service_method_array(method_name)
-          when 'Hash'
-
-            define_service_method_hash(method_name)
-          else
+        def define_service_method(method_name, method_attributes)
             define_singleton_method(method_name) do
 
             end
-          end
         end
       end
     end

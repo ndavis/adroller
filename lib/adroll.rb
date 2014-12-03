@@ -8,7 +8,6 @@ end
 
 module AdRoll
   module Api
-    @version = 'v1'
 
     class << self
       def user_name
@@ -20,15 +19,7 @@ module AdRoll
       end
 
       def base_url
-        'https://api.adroll.com'
-      end
-
-      def version(value = nil)
-        @version = value ? value : @version
-      end
-
-      def root_url
-        File.join(base_url, version)
+        'https://api.adroll.com/v1'
       end
 
       def api_services
@@ -41,7 +32,6 @@ module AdRoll
       def define_methods_for_services(yaml_file)
         YAML.load_file(yaml_file).each do |service_class, method_list|
           next if method_list.nil?
-
           method_list.each do |method_spec|
 
             method_name =  method_spec.keys.first
@@ -49,7 +39,7 @@ module AdRoll
 
             AdRoll::Api
               .const_get(service_class)
-              .define_service_method(method_name, method_attrs['results'])
+              .define_service_method(method_name, method_attrs)
           end
         end
       end

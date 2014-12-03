@@ -1,11 +1,7 @@
 require 'spec_helper'
 
 describe AdRoll::Api::Service do
-  let(:service) { FactoryGirl.build(:service) }
   let(:service_url) { AdRoll::Api::Service.service_url }
-  let(:service_object)do
-    FactoryGirl.build(:service, attr_1: 'value 1', attr_2: 'value 2')
-  end
 
   let(:request_params) do
     { param_1: '1', param_2: '2' }
@@ -15,17 +11,22 @@ describe AdRoll::Api::Service do
     { response_1: 123, response_2: 456 }.to_json
   end
 
-  describe '#initialize' do
-    it 'should create attributes for each hash key/value pair' do
-      expect(service_object.respond_to?(:attr_1)).to be true
-      expect(service_object.respond_to?(:attr_2)).to be true
-      expect(service_object.respond_to?(:attr_3)).to be false
-      expect(service_object.attr_1).to eq 'value 1'
-      expect(service_object.attr_2).to eq 'value 2'
+  subject { FactoryGirl.build(:service) }
+
+  describe '::initialize' do
+    let!(:new_service) { FactoryGirl.build(:service, attribute_1: 'value 1') }
+
+    it 'should create specified attributes' do
+      expect(new_service.respond_to?(:attribute_1)).to be true
+      expect(new_service.respond_to?(:attribute_2)).to be false
+    end
+
+    it 'should set the value for the specified attributes' do
+      expect(new_service.attribute_1).to eq 'value 1'
     end
   end
 
-  describe '#service_url' do
+  describe '::service_url' do
     it 'should return its service url' do
       expect(AdRoll::Api::Service.service_url).to eq 'https://api.adroll.com/v1/service'
     end
@@ -46,12 +47,7 @@ describe AdRoll::Api::Service do
 
     it 'should return an instance of the Service object' do
       new_service = AdRoll::Api::Service.create(request_params)
-
-      expect(new_service.respond_to?(:response_1)).to be true
-      expect(new_service.respond_to?(:response_2)).to be true
-      expect(new_service.respond_to?(:response_3)).to be false
-      expect(new_service.response_1).to eq 123
-      expect(new_service.response_2).to eq 456
+      expect(new_service).to be_an_instance_of AdRoll::Api::Service
     end
   end
 
@@ -69,13 +65,8 @@ describe AdRoll::Api::Service do
     end
 
     it 'should return an instance of the Service object' do
-      new_service = AdRoll::Api::Service.edit(request_params)
-
-      expect(new_service.respond_to?(:response_1)).to be true
-      expect(new_service.respond_to?(:response_2)).to be true
-      expect(new_service.respond_to?(:response_3)).to be false
-      expect(new_service.response_1).to eq 123
-      expect(new_service.response_2).to eq 456
+      edited_service = AdRoll::Api::Service.edit(request_params)
+      expect(edited_service).to be_an_instance_of AdRoll::Api::Service
     end
   end
 
@@ -93,42 +84,16 @@ describe AdRoll::Api::Service do
     end
 
     it 'should return an instance of the Service object' do
-      new_service = AdRoll::Api::Service.get(request_params)
-
-      expect(new_service.respond_to?(:response_1)).to be true
-      expect(new_service.respond_to?(:response_2)).to be true
-      expect(new_service.respond_to?(:response_3)).to be false
-      expect(new_service.response_1).to eq 123
-      expect(new_service.response_2).to eq 456
+      existing_service = AdRoll::Api::Service.get(request_params)
+      expect(existing_service).to be_an_instance_of AdRoll::Api::Service
     end
   end
 
-  describe '#define_service_method' do
+  describe '::define_service_method' do
 
     it 'should create the class method specified' do
-      AdRoll::Api::Service.define_service_method('my_method')
+      AdRoll::Api::Service.define_service_method('my_method', {return_type: 'Array'})
       expect(AdRoll::Api::Service.respond_to?(:my_method)).to be true
-    end
-
-    context 'when the method specifies a return type' do
-
-      before do
-        AdRoll::Api
-          .define_methods_for_services('spec/support/api_specifications.yml')
-      end
-
-      it 'should return an array if return_type is Array' do
-        expect(AdRoll::Api::Service2.method_1).to be_a Array
-      end
-
-      it 'should return a hash if return_type is Hash' do
-        expect(AdRoll::Api::Service2.method_2).to be_a Hash
-      end
-    end
-
-    context "the method's return type" do
-      it 'should make a post request when request_type is post' do
-      end
     end
   end
 end
