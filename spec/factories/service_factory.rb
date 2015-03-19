@@ -1,7 +1,6 @@
 require 'factory_girl'
 
 FactoryGirl.define do
-  factory :service, class: AdRoll::Api::Service do
-    initialize_with { new(attributes) }
+  factory :service, class: 'AdRoll::Api::Service' do
   end
 end

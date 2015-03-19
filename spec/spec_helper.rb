@@ -13,5 +13,6 @@ FactoryGirl.find_definitions
 AdRoll::Api.const_set('Service1', Class.new(AdRoll::Api::Service))
 AdRoll::Api.const_set('Service2', Class.new(AdRoll::Api::Service))
 
-ENV['USERNAME'] = 'USERNAME'
-ENV['PASSWORD'] = 'PASSWORD'
+ENV['ADROLL_USERNAME'] = 'USERNAME'
+ENV['ADROLL_PASSWORD'] = 'PASSWORD'
+ENV['ADROLL_ORGANIZATION_EID'] = 'ORG123XYZ'

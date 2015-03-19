@@ -1,38 +1,100 @@
 require 'spec_helper'
 
 describe AdRoll::Api::Service do
-  let(:service_url) { AdRoll::Api::Service.service_url }
+  #let(:service_url) { AdRoll::Api::Service.service_url }
 
-  let(:request_params) do
-    { param_1: '1', param_2: '2' }
-  end
+  #let(:request_params) do
+  #{ param_1: '1', param_2: '2' }
+  #end
 
-  let(:request_response) do
-    { response_1: 123, response_2: 456 }.to_json
-  end
+  #let(:request_response) do
+  #{ response_1: 123, response_2: 456 }.to_json
+  #end
 
-  subject { FactoryGirl.build(:service) }
-
-  describe '::initialize' do
-    let!(:new_service) { FactoryGirl.build(:service, attribute_1: 'value 1') }
-
-    it 'should create specified attributes' do
-      expect(new_service.respond_to?(:attribute_1)).to be true
-      expect(new_service.respond_to?(:attribute_2)).to be false
-    end
-
-    it 'should set the value for the specified attributes' do
-      expect(new_service.attribute_1).to eq 'value 1'
-    end
-  end
+  subject{ described_class.new }
 
   describe '::service_url' do
     it 'should return its service url' do
-      expect(AdRoll::Api::Service.service_url).to eq 'https://api.adroll.com/v1/service'
+      expect(subject.class.service_url).to eq 'https://api.adroll.com/v1/service'
     end
   end
 
-  describe '#create' do
+  describe '::basic_auth' do
+    it 'should return the username and password' do
+      expect(subject.class.basic_auth).to eq({username: AdRoll::Api.user_name, password: AdRoll::Api.password})
+    end
+  end
+
+  describe '#respond_to?' do
+
+    context 'when method name does not exist in api_endpoints' do
+      before do
+        allow(subject).to receive(:api_endpoints).and_return([{}])
+        allow(subject).to receive(:api_attributes).and_return([])
+      end
+
+      it 'should return false' do
+        expect(subject.respond_to?(:not_a_method)).to be false
+      end
+    end
+
+    context 'when method name exists in api_endpoints' do
+      before do
+        allow(subject).to receive(:api_endpoints).and_return([{method_name: :a_method}])
+        allow(subject).to receive(:api_attributes).and_return([])
+      end
+
+      it 'should return true' do
+        expect(subject.respond_to?(:a_method)).to be true
+      end
+    end
+
+    context 'when attribute name does not exist in api_attributes' do
+      before do
+        allow(subject).to receive(:api_endpoints).and_return([{}])
+        allow(subject).to receive(:api_attributes).and_return([])
+      end
+
+      it 'should return false' do
+        expect(subject.respond_to?(:not_an_attribute)).to be false
+      end
+    end
+
+    context 'when attribute name exists in api_attributes' do
+      before do
+        allow(subject).to receive(:api_endpoints).and_return([{}])
+        allow(subject).to receive(:api_attributes).and_return([:an_attribute])
+      end
+
+      it 'should return true' do
+        expect(subject.respond_to?(:an_attribute)).to be true
+      end
+    end
+  end
+
+  describe '#method_missing' do
+    before do
+      allow(subject).to receive(:respond_to?).with(:some_method_name).and_return(true)
+      allow(subject).to receive(:respond_to?).with(:not_this_method_name).and_return(false)
+    end
+
+    context 'when the Service responds_to the method name' do
+
+      it 'should define the method' do
+        subject.some_method_name
+        expect(subject.methods).to include(:some_method_name)
+      end
+    end
+
+    context 'when the Service does not respond to the method name' do
+
+      it 'should not define the method' do
+        expect{subject.not_this_method_name}.to raise_error(NoMethodError)
+      end
+    end
+  end
+
+  xdescribe '#create' do
     before do
       stub_request(:post, "#{service_url}/create")
         .with(query: request_params)
@@ -51,7 +113,7 @@ describe AdRoll::Api::Service do
     end
   end
 
-  describe '#edit' do
+  xdescribe '#edit' do
     before do
       stub_request(:put, "#{service_url}/edit")
         .with(query: request_params)
@@ -70,7 +132,7 @@ describe AdRoll::Api::Service do
     end
   end
 
-  describe '#get' do
+  xdescribe '#get' do
     before do
       stub_request(:get, "#{service_url}/get")
         .with(query: request_params)
@@ -86,14 +148,6 @@ describe AdRoll::Api::Service do
     it 'should return an instance of the Service object' do
       existing_service = AdRoll::Api::Service.get(request_params)
       expect(existing_service).to be_an_instance_of AdRoll::Api::Service
-    end
-  end
-
-  describe '::define_service_method' do
-
-    it 'should create the class method specified' do
-      AdRoll::Api::Service.define_service_method('my_method', {return_type: 'Array'})
-      expect(AdRoll::Api::Service.respond_to?(:my_method)).to be true
     end
   end
 end
