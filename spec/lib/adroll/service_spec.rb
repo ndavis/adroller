@@ -1,17 +1,8 @@
 require 'spec_helper'
 
 describe AdRoll::Api::Service do
-  #let(:service_url) { AdRoll::Api::Service.service_url }
 
-  #let(:request_params) do
-  #{ param_1: '1', param_2: '2' }
-  #end
-
-  #let(:request_response) do
-  #{ response_1: 123, response_2: 456 }.to_json
-  #end
-
-  subject{ described_class.new }
+  subject { described_class.new }
 
   describe '::service_url' do
     it 'should return its service url' do
@@ -21,16 +12,16 @@ describe AdRoll::Api::Service do
 
   describe '::basic_auth' do
     it 'should return the username and password' do
-      expect(subject.class.basic_auth).to eq({username: AdRoll::Api.user_name, password: AdRoll::Api.password})
+      expect(subject.class.basic_auth).to eq(username: AdRoll::Api.user_name, password: AdRoll::Api.password)
     end
   end
 
   describe '#respond_to?' do
 
-    context 'when method name does not exist in api_endpoints' do
+    context 'when method name does not exist in api_metadata' do
       before do
-        allow(subject).to receive(:api_endpoints).and_return([{}])
-        allow(subject).to receive(:api_attributes).and_return([])
+        allow(subject).to receive(:api_metadata).and_return([{}])
+        allow(subject).to receive(:service_attributes).and_return([])
       end
 
       it 'should return false' do
@@ -38,10 +29,10 @@ describe AdRoll::Api::Service do
       end
     end
 
-    context 'when method name exists in api_endpoints' do
+    context 'when method name exists in api_metadata' do
       before do
-        allow(subject).to receive(:api_endpoints).and_return([{method_name: :a_method}])
-        allow(subject).to receive(:api_attributes).and_return([])
+        allow(subject).to receive(:api_metadata).and_return([{ endpoint: :a_method }])
+        allow(subject).to receive(:service_attributes).and_return([])
       end
 
       it 'should return true' do
@@ -51,8 +42,8 @@ describe AdRoll::Api::Service do
 
     context 'when attribute name does not exist in api_attributes' do
       before do
-        allow(subject).to receive(:api_endpoints).and_return([{}])
-        allow(subject).to receive(:api_attributes).and_return([])
+        allow(subject).to receive(:api_metadata).and_return([{}])
+        allow(subject).to receive(:service_attributes).and_return([])
       end
 
       it 'should return false' do
@@ -62,8 +53,8 @@ describe AdRoll::Api::Service do
 
     context 'when attribute name exists in api_attributes' do
       before do
-        allow(subject).to receive(:api_endpoints).and_return([{}])
-        allow(subject).to receive(:api_attributes).and_return([:an_attribute])
+        allow(subject).to receive(:api_metadata).and_return([{}])
+        allow(subject).to receive(:service_attributes).and_return([:an_attribute])
       end
 
       it 'should return true' do
@@ -84,12 +75,12 @@ describe AdRoll::Api::Service do
         subject.some_method_name
         expect(subject.methods).to include(:some_method_name)
       end
+
     end
 
     context 'when the Service does not respond to the method name' do
-
       it 'should not define the method' do
-        expect{subject.not_this_method_name}.to raise_error(NoMethodError)
+        expect { subject.not_this_method_name }.to raise_error(NoMethodError)
       end
     end
   end

@@ -7,7 +7,6 @@ end
 
 module AdRoll
   module Api
-
     def self.user_name
       ENV['ADROLL_USERNAME']
     end
