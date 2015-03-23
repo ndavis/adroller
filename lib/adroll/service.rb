@@ -1,9 +1,6 @@
 module AdRoll
   module Api
     class Service
-      # API_METADATA = [{}]
-
-      # SERVICE_ATTRIBUTES = []
 
       def self.respond_to?(method_name, include_all = false)
         if api_endpoints.include?(method_name) ||
