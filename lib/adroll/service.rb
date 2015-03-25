@@ -1,10 +1,24 @@
 module AdRoll
   module Api
     class Service
+      def respond_to?(method_name, include_all = false)
+        if self.class::SERVICE_ATTRIBUTES.include?(method_name)
+          true
+        else
+          super
+        end
+      end
+
+      def method_missing(method_name, *args, &block)
+        if self.class::SERVICE_ATTRIBUTES.include?(method_name)
+          self.class.__send__(:attr_accessor, method_name)
+        else
+          super
+        end
+      end
 
       def self.respond_to?(method_name, include_all = false)
-        if api_endpoints.include?(method_name) ||
-          self::SERVICE_ATTRIBUTES.include?(method_name)
+        if api_endpoints.include?(method_name)
           true
         else
           super
@@ -12,14 +26,14 @@ module AdRoll
       end
 
       def self.method_missing(method_name, *args, &block)
-        if api_endpoints.include?(method_name) ||
-          self::SERVICE_ATTRIBUTES.include?(method_name)
+        if api_endpoints.include?(method_name)
 
           define_singleton_method(method_name) do |request_params|
             call_api(method_name, request_params.first)
           end
 
           send(method_name, args)
+
         else
           super
         end
