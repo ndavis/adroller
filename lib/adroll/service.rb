@@ -1,6 +1,28 @@
 module AdRoll
   module Api
     class Service
+      def initialize(args = {})
+        args.each do |attribute, value|
+
+          send(attribute.to_sym)
+          send("#{attribute}=", value)
+
+        end
+
+        self
+      end
+
+      def attributes
+        attribute_hash = {}
+
+        self.class::SERVICE_ATTRIBUTES.reduce(attribute_hash) do |hash, attribute|
+          hash[attribute] = instance_variable_get("@#{attribute}")
+          hash
+        end
+
+        attribute_hash
+      end
+
       def respond_to?(method_name, include_all = false)
         if self.class::SERVICE_ATTRIBUTES.include?(method_name)
           true
@@ -11,7 +33,7 @@ module AdRoll
 
       def method_missing(method_name, *args, &block)
         if self.class::SERVICE_ATTRIBUTES.include?(method_name)
-          self.class.__send__(:attr_accessor, method_name)
+          self.class.send(:attr_accessor, method_name)
         else
           super
         end

@@ -116,4 +116,27 @@ describe AdRoll::Api::Service do
       end
     end
   end
+
+  describe '#initialize' do
+    before do
+      stub_const("#{subject}::SERVICE_ATTRIBUTES", [:an_attribute])
+    end
+
+    it 'should set the instance variables' do
+      service = subject.new(an_attribute: 1)
+      expect(service.an_attribute).to eq 1
+
+    end
+  end
+
+  describe '#attributes' do
+    before do
+      stub_const("#{subject}::SERVICE_ATTRIBUTES", [:an_attribute])
+    end
+
+    it 'should return the instance variables in a Hash' do
+      service = subject.new(an_attribute: 1)
+      expect(service.attributes).to match(an_attribute: 1)
+    end
+  end
 end
