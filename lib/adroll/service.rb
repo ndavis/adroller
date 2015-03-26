@@ -13,14 +13,9 @@ module AdRoll
       end
 
       def attributes
-        attribute_hash = {}
-
-        self.class::SERVICE_ATTRIBUTES.reduce(attribute_hash) do |hash, attribute|
+        self.class::SERVICE_ATTRIBUTES.each_with_object({}) do |attribute, hash|
           hash[attribute] = instance_variable_get("@#{attribute}")
-          hash
         end
-
-        attribute_hash
       end
 
       def respond_to?(method_name, include_all = false)
@@ -85,8 +80,12 @@ module AdRoll
         response = HTTParty
           .send(request_method(endpoint), request_uri, request_params)
 
-        JSON.parse(response)
+        service_attributes = JSON.parse(response)
+        new(service_attributes)
       end
+
+      private_class_method :service_url, :basic_auth, :api_endpoints
+      private_class_method :request_method, :call_api
     end
   end
 end

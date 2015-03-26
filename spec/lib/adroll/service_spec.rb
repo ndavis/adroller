@@ -4,19 +4,6 @@ describe AdRoll::Api::Service do
 
   subject { described_class }
 
-  describe '::service_url' do
-    it 'should return its service url' do
-      expect(subject.service_url).to eq 'https://api.adroll.com/v1/service'
-    end
-  end
-
-  describe '::basic_auth' do
-    it 'should return the username and password' do
-      expect(subject.basic_auth)
-        .to eq(username: AdRoll::Api.user_name, password: AdRoll::Api.password)
-    end
-  end
-
   describe '::respond_to?' do
 
     context 'when method name does not exist in api_endpoints' do
