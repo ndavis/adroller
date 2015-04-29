@@ -4,6 +4,7 @@ gem 'httparty'
 
 group :development do
   gem 'rubocop'
+  gem 'tmuxinator'
 end
 
 group :test do
