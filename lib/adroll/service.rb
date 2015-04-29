@@ -74,13 +74,14 @@ module AdRoll
         end[:request_method]
       end
 
-      def self.call_api(endpoint, request_params)
+      def self.call_api(endpoint, query_params)
         request_uri = File.join(service_url, endpoint.to_s)
 
-        response = HTTParty
-          .send(request_method(endpoint), request_uri, request_params)
+        response = HTTParty.send(
+          request_method(endpoint), request_uri,
+          basic_auth: basic_auth, query: query_params)
 
-        service_attributes = JSON.parse(response)
+        service_attributes = JSON.parse(response.body)['results']
         new(service_attributes)
       end
 

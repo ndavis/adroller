@@ -57,7 +57,8 @@ describe AdRoll::Api::Service do
         [{ endpoint: :some_method_name, request_method: :get }]
       )
 
-      allow(HTTParty).to receive(:get).and_return('{}')
+      stub_request(:get, 'https://USERNAME:PASSWORD@api.adroll.com/v1/service/some_method_name')
+        .to_return(status: 200, body: { results: [] }.to_json)
     end
 
     context 'when the Service responds to the method name' do
