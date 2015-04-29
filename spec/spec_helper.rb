@@ -7,14 +7,11 @@ require 'yaml'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
-  config.extend VCR::RSpec::Macros
 end
 
 FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
 FactoryGirl.find_definitions
 
-environment_variables = YAML.load_file 'config/application.yml'
-
-environment_variables['production'].each do |key, value|
-  ENV[key] = value
-end
+ENV['ADROLL_USERNAME'] = 'USERNAME'
+ENV['ADROLL_PASSWORD'] = 'PASSWORD'
+ENV['ADROLL_ORGANIZATION_EID'] = 'ORG123XYZ'
