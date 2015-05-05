@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.adroll.com/v1/advertisable/create?name=Test%20Advertisable&organization=2W3B6YNEVRFMZG46T7675M
+    body:
+      encoding: UTF-8
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Tue, 05 May 2015 01:48:44 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.6.2
+      Set-Cookie:
+      - adroll=419bc916d897124ce738c010cb7127a430629c28fb797a2cce734fc589f407a8b68c87b9;
+        expires=Tue, 19-Jan-2038 03:14:07 GMT; httponly; Path=/; secure
+      - csrftoken=1be356c381275dec1fc1db294ae1b63e; Path=/
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Runtime-Ms:
+      - '281'
+      Content-Length:
+      - '1098'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"results": {"path_name": "testadvertisable", "updated_date": "2015-05-05
+        01:48:44", "twitter_handle": null, "marketo_client_id": "", "currency": "USD",
+        "revshare_view_percent": 100.0, "am_email": null, "fb_offsite_pixels_tos_accepted":
+        false, "is_marketo_syncing": false, "attached_users": [], "marketo_api_endpoint":
+        "", "mailchimp_api_key": null, "account_is_prepaid": true, "product_name":
+        null, "revshare_click_percent": 100.0, "status": "admin_review", "marketo_secret_key":
+        "", "fbx_page_id": null, "click_through_conversion_window": 30, "is_active":
+        true, "view_through_conversion_window": 30, "is_managed": false, "is_twitter_syncing":
+        false, "is_mailchimp_syncing": false, "enable_customer_multi_dur_segs": true,
+        "fbx_account_id": "", "is_coop_approved": null, "rollcrawl_enabled": false,
+        "account": "4PGKMGFZENBG4IOTXCGM7U", "name": "Test Advertisable", "cm_networks":
+        "bfglmorwx", "url": "http://nikolasliamdavis@gmail.com", "eid": "5S5VGMIV8XIA6RDWR7LLOFP",
+        "blacklisted_sites": [], "created_date": "2015-05-05 01:48:44", "fbx_page_url":
+        null, "organization": "RW7B6YNE0VAFM3G4VT767MT"}}'
+    http_version: 
+  recorded_at: Tue, 05 May 2015 01:48:44 GMT
+recorded_with: VCR 2.9.3

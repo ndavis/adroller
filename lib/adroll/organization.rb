@@ -1,5 +1,3 @@
-require 'adroll/service'
-
 module AdRoll
   module Api
     class Organization < AdRoll::Api::Service
