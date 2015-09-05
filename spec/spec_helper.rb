@@ -2,11 +2,14 @@ require 'adroll'
 require 'byebug'
 require 'factory_girl'
 require 'webmock/rspec'
-require 'support/vcr_setup'
-require 'yaml'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+
+  config.before(:each) do
+    stub_request(:any, /https:\/\/USERNAME:PASSWORD@api.adroll.com\/v1\//)
+      .to_return(status: [200, 'OK'], body: { results: {} }.to_json)
+  end
 end
 
 FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]

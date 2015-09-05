@@ -1,47 +1,47 @@
 module AdRoll
   module Api
     class Organization < AdRoll::Api::Service
-      API_METADATA =
-        [
-          { endpoint: :get,
-            request_method: :get },
+      class << self
+        def get(organization: nil)
+          params = {
+            organization: organization
+          }
 
-          { endpoint: :get_advertisables,
-            request_method: :get,
-            collection: :advertisable },
+          call_api(:get, __method__, params)
+        end
 
-          { endpoint: :get_billing_methods,
-            request_method: :get,
-            collection: :billing_method },
+        def get_advertisables(organization: nil)
+          params = {
+            organization: organization
+          }
 
-          { endpoint: :get_users,
-            request_method: :get,
-            collection: :user },
+          call_api(:get, __method__, params)
+        end
 
-          { endpoint: :reset,
-            request_method: :get }
-        ]
+        def get_billing_methods(organization: nil)
+          params = {
+            organization: organization
+          }
 
-      SERVICE_ATTRIBUTES = [
-        :api_request_limit,
-        :billing_city,
-        :billing_country,
-        :billing_email,
-        :billing_name,
-        :billing_postal_code,
-        :billing_state,
-        :billing_street,
-        :billing_street_2,
-        :created_date,
-        :eid,
-        :is_prepaid,
-        :is_sandbox,
-        :is_trusted,
-        :name,
-        :referral_payment_eligible,
-        :tax_id,
-        :vat_number
-      ]
+          call_api(:get, __method__, params)
+        end
+
+        def get_users(organization: nil)
+          params = {
+            organization: organization
+          }
+
+          call_api(:get, __method__, params)
+        end
+
+        def reset(organization:)
+          params = {
+            organization: organization
+          }
+
+          call_api(:get, __method__, params)
+        end
+      end
     end
   end
 end
