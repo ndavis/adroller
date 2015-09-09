@@ -1,83 +1,120 @@
 module AdRoll
   module Api
     class Advertisable < AdRoll::Api::Service
-      API_METADATA =
-        [
-          { endpoint: :create,
-            request_method: :post },
+      class << self
+        def create(name: nil, organization:, set_as_default: false, url: nil, product_name: nil)
+          params = {
+            name: name,
+            organization: organization,
+            set_as_default: set_as_default,
+            url: url,
+            product_name: product_name
+          }.reject { |_, value| value.nil? }
 
-          { endpoint: :edit,
-            request_method: :put },
+          call_api(:post, __method__, params)
+        end
 
-          { endpoint: :enable_rollcrawl,
-            request_method: :get },
+        def edit(advertisable:, click_through_conversion_window: nil, name: nil, path_name: nil,
+                 url: nil, product_name: nil, view_through_conversion_window: nil)
 
-          { endpoint: :get,
-            request_method: :get },
+          params = {
+            advertisable: advertisable,
+            click_through_conversion_window: click_through_conversion_window,
+            name: name,
+            path_name: path_name,
+            url: url,
+            product_name: product_name,
+            view_through_conversion_window: view_through_conversion_window
+          }.reject { |_, value| value.nil? }
 
-          { endpoint: :get_adgroups,
-            request_method: :get,
-            collection: :ad_group },
+          call_api(:put, __method__, params)
+        end
 
-          { endpoint: :get_ads,
-            request_method: :get,
-            collection: :ad },
+        def enable_rollcrawl(advertisable:, url:)
+          params = {
+            advertisable: advertisable,
+            url: url
+          }
 
-          { endpoint: :get_campaigns,
-            request_method: :get,
-            collection: :campaign },
+          call_api(:get, __method__, params)
+        end
 
-          { endpoint: :get_coops,
-            request_method: :get,
-            collection: :coop },
+        def get(advertisable:)
+          params = {
+            advertisable: advertisable
+          }
 
-          { endpoint: :get_pixel,
-            request_method: :get },
+          call_api(:get, __method__, params)
+        end
 
-          { endpoint: :get_segments,
-            request_method: :get,
-            collection: :segment }
-        ]
+        def get_adgroups(advertisable:, camp_active: true, camp_statuses: nil, camp_blacklist_statuses: nil,
+                         camp_type: nil, statuses: %w(approved admin_review paused admin_paused),
+                         blacklist_statuses: nil)
 
-      SERVICE_ATTRIBUTES = [
-        :account,
-        :account_is_prepaid,
-        :am_email,
-        :attached_users,
-        :blacklisted_sites,
-        :click_through_conversion_window,
-        :cm_networks,
-        :created_date,
-        :currency,
-        :eid,
-        :enable_customer_multi_dur_segs,
-        :fb_offsite_pixels_tos_accepted,
-        :fbx_account_id,
-        :fbx_page_id,
-        :fbx_page_url,
-        :is_active,
-        :is_coop_approved,
-        :is_marketo_syncing,
-        :is_managed,
-        :is_twitter_syncing,
-        :is_mailchimp_syncing,
-        :mailchimp_api_key,
-        :marketo_api_endpoint,
-        :marketo_client_id,
-        :marketo_secret_key,
-        :name,
-        :organization,
-        :path_name,
-        :product_name,
-        :revshare_click_percent,
-        :revshare_view_percent,
-        :rollcrawl_enabled,
-        :status,
-        :twitter_handle,
-        :updated_date,
-        :url,
-        :view_through_conversion_window
-      ]
+          params = {
+            advertisable: advertisable,
+            camp_active: camp_active,
+            camp_statuses: camp_statuses,
+            camp_blacklist_statuses: camp_blacklist_statuses,
+            camp_type: camp_type,
+            statuses: statuses,
+            blacklist_statuses: blacklist_statuses
+          }.reject { |_, value| value.nil? }
+
+          call_api(:get, __method__, params)
+        end
+
+        def get_ads(advertisable:, is_active: true, statuses: nil, types: nil, width: nil, height: nil)
+          params = {
+            advertisable: advertisable,
+            is_active: is_active,
+            statuses: statuses,
+            types: types,
+            width: width,
+            height: height
+          }.reject { |_, value| value.nil? }
+
+          call_api(:get, __method__, params)
+        end
+
+        def get_campaigns(advertisable:, is_active: true, statuses: nil, types: nil, blacklist_statuses: nil)
+          params = {
+            advertisable: advertisable,
+            is_active: is_active,
+            statuses: statuses,
+            blacklist_statues: blacklist_statuses,
+            types: types
+          }.reject { |_, value| value.nil? }
+
+          call_api(:get, __method__, params)
+        end
+
+        def get_coops(advertisable:, filter_active:, coops_active: true)
+          params = {
+            advertisable: advertisable,
+            filter_active: filter_active,
+            coops_active: coops_active
+          }.reject { |_, value| value.nil? }
+
+          call_api(:get, __method__, params)
+        end
+
+        def get_pixel(advertisable:)
+          params = {
+            advertisable: advertisable
+          }
+
+          call_api(:get, __method__, params)
+        end
+
+        def get_segments(advertisable:)
+          params = {
+            advertisable: advertisable
+          }
+
+          call_api(:get, __method__, params)
+        end
+      end
     end
   end
 end
