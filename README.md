@@ -8,15 +8,20 @@ General Info
 
 API version: v1
 
-API base ur: https://api.adroll.com
+API base url: https://api.adroll.com/v1/
+
+API documentation: https://app.adroll.com/api/v1/docs
 
 Setup
 =====
-Set your API username, password and organization eid in config/application.yml
 
-ADROLL_USERNAME: 'username'
-ADROLL_PASSWORD: 'password'
-ADROLL_ORGANIZATION: 'organization eid'
+Set your API username, password and organization eid in your environment
+
+ENV['ADROLL_USERNAME'] = 'Your User Name'
+
+ENV['ADROLL_PASSWORD'] = 'Your Password'
+
+ENV['ADROLL_ORGANIZATION'] = 'Your Organization eid'
 
 Usage
 =======
