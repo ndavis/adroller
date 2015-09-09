@@ -1,7 +1,7 @@
-Adroller
+Adroller: An API Wrapper for AdRoll
 ========
 
-API Wrapper for AdRoll
+![alt tag](https://upload.wikimedia.org/wikipedia/commons/8/86/AdRoll.png)
 
 General Info
 ============
