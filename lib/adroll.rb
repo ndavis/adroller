@@ -23,11 +23,5 @@ module AdRoll
       'https://api.adroll.com/v1'
     end
 
-    def self.api_services
-      [
-        Ad, AdGroup, Advertisable, Campaign, Event, Invoice, MobileApp,
-        Organization, PaymentMethod, Pixel, Report, Rule, Segment, User
-      ]
-    end
   end
 end
