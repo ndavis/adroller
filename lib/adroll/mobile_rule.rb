@@ -3,8 +3,7 @@ module AdRoll
   module Api
     class MobileRule < AdRoll::Api::Service
       class << self
-        def edit(rule: , app_identifier: , event: , os: , device_type: )
-
+        def edit(rule:, app_identifier:, event:, os:, device_type:)
           params = {
             rule: rule,
             app_identifier: app_identifier,
@@ -16,15 +15,14 @@ module AdRoll
           call_api(:put, __method__, params)
         end
 
-        def get(rule: , pixel: , os: , device_type: , app_identifier: , event: , name: )
-
+        def get(rule:, pixel:, os:, device_type:, app_identifier:, event:, name:)
           params = {
-            rule: rule ,
-            pixel: pixel ,
+            rule: rule,
+            pixel: pixel,
             os: os,
-            device_type: device_type ,
+            device_type: device_type,
             app_identifier: app_identifier,
-            event: event ,
+            event: event,
             name: name
           }.reject { |_, value| value.nil? }
 

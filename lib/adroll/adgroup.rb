@@ -4,7 +4,7 @@ module AdRoll
   module Api
     class Adgroup < AdRoll::Api::Service
       class << self
-        def add_demographic_target(adgroup: , target_min: , min_age: , target_max: , max_age: )
+        def add_demographic_target(adgroup:, target_min:, min_age:, target_max:, max_age:)
           params = {
             adgroup: adgroup,
             target_min: target_min,
@@ -16,7 +16,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def add_placement_target(adgroup: , placement: )
+        def add_placement_target(adgroup:, placement:)
           params = {
             adgroup: adgroup,
             placement: placement
@@ -25,7 +25,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def add_platform_target(adgroup: , type: , os: , os_version: , device: )
+        def add_platform_target(adgroup:, type:, os:, os_version:, device:)
           params = {
             adgroup: adgroup,
             type: type,
@@ -37,7 +37,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def add_segments(adgroup: , segments: , is_negative: nil)
+        def add_segments(adgroup:, segments:, is_negative: nil)
           params = {
             adgroup: adgroup,
             segments: segments,
@@ -47,7 +47,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def allow_site(ad_format: , site: )
+        def allow_site(ad_format:, site:)
           params = {
             ad_format: ad_format,
             site: site
@@ -56,7 +56,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def approve_ad(adgroup: , ad: )
+        def approve_ad(adgroup:, ad:)
           params = {
             adgroup: adgroup,
             ad: ad
@@ -65,7 +65,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def clone(adgroup: )
+        def clone(adgroup:)
           params = {
             adgroup: adgroup
           }.reject { |_, value| value.nil? }
@@ -73,8 +73,8 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def create(campaign: ,name: nil, ads: nil, positive_segments: nil, negative_segments: nil,
-                   geo_targets:, geo_targets_countries: nil, geo_targets_regions: )
+        def create(campaign:, name: nil, ads: nil, positive_segments: nil, negative_segments: nil,
+                   geo_targets:, geo_targets_countries: nil, geo_targets_regions:)
           params = {
             campaign: campaign,
             name: name,
@@ -89,7 +89,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def deselect_ads(adgroup: , ads: )
+        def deselect_ads(adgroup:, ads:)
           params = {
             adgroup: adgroup,
             ads: ads
@@ -98,8 +98,8 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def edit(campaign: ,name: nil, status: nil, ads: nil, positive_segments: nil, negative_segments: nil,
-                 geo_targets:, geo_targets_countries: nil, geo_targets_regions: )
+        def edit(campaign:, name: nil, status: nil, ads: nil, positive_segments: nil, negative_segments: nil,
+                 geo_targets:, geo_targets_countries: nil, geo_targets_regions:)
           params = {
             campaign: campaign,
             name: name,
@@ -115,7 +115,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def exclude_site(ad_format: , site: )
+        def exclude_site(ad_format:, site:)
           params = {
             ad_format: ad_format,
             site: site
@@ -124,7 +124,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def get(adgroup: )
+        def get(adgroup:)
           params = {
             adgroup: adgroup
           }.reject { |_, value| value.nil? }
@@ -132,7 +132,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def get_ads( adgroup:, is_active: nil, statuses: nil, types: nil, width: nil, height: nil )
+        def get_ads(adgroup:, is_active: nil, statuses: nil, types: nil, width: nil, height: nil)
           params = {
             adgroup: adgroup,
             is_active: is_active,
@@ -145,7 +145,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def get_geo_targets(adgroup: )
+        def get_geo_targets(adgroup:)
           params = {
             agroup: adgroup
           }.reject { |_, value| value.nil? }
@@ -153,7 +153,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def pause(adgroup: )
+        def pause(adgroup:)
           params = {
             adgroup: adgroup
           }.reject { |_, value| value.nil? }
@@ -161,7 +161,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def pause_ad(adgroup: , ad: )
+        def pause_ad(adgroup:, ad:)
           params = {
             adgroup: adgroup,
             ad: ad
@@ -170,7 +170,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def pause_ads(adgroup: , ads: )
+        def pause_ads(adgroup:, ads:)
           params = {
             adgroup: adgroup,
             ads: ads
@@ -179,7 +179,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def remove_placement_target(adgroup: , placement: )
+        def remove_placement_target(adgroup:, placement:)
           params = {
             adgroup: adgroup,
             placement: placement
@@ -188,7 +188,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def remove_platform_target(adgroup: , type: , os: , os_version: , device: )
+        def remove_platform_target(adgroup:, type:, os:, os_version:, device:)
           params = {
             adgroup: adgroup,
             type: type,
@@ -200,7 +200,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def remove_segments(adgroup: , segments: )
+        def remove_segments(adgroup:, segments:)
           params = {
             adgroup: adgroup,
             segments: segments
@@ -209,7 +209,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def select_ads(adgroup: , ads: )
+        def select_ads(adgroup:, ads:)
           params = {
             adgroup: adgroup,
             ads: ads
@@ -218,7 +218,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def unpause(adgroup: )
+        def unpause(adgroup:)
           params = {
             adgroup: adgroup
           }.reject { |_, value| value.nil? }
@@ -226,7 +226,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def unpause_ad(adgroup: , ad: )
+        def unpause_ad(adgroup:, ad:)
           params = {
             adgroup: adgroup,
             ad: ad
@@ -235,7 +235,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def unpause_ads(adgroup: , ads: )
+        def unpause_ads(adgroup:, ads:)
           params = {
             adgroup: adgroup,
             ads: ads
@@ -243,7 +243,6 @@ module AdRoll
 
           call_api(:get, __method__, params)
         end
-
       end
     end
   end

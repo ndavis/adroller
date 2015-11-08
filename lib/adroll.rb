@@ -22,6 +22,5 @@ module AdRoll
     def self.base_url
       'https://api.adroll.com/v1'
     end
-
   end
 end

@@ -2,7 +2,7 @@ module AdRoll
   module Api
     class User < AdRoll::Api::Service
       class << self
-        def deactivate(user: )
+        def deactivate(user:)
           params = {
             user: user
           }.reject { |_, value| value.nil? }
@@ -10,10 +10,10 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def edit(u: , username:, first_name: , last_name: , email_preference_general: ,
-                 email_preference_payment: , email_preference_campaign_notifications: )
+        def edit(u:, username:, first_name:, last_name:, email_preference_general:,
+                 email_preference_payment:, email_preference_campaign_notifications:)
           params = {
-            u: u ,
+            u: u,
             username: username,
             first_name: first_name,
             last_name: last_name,
@@ -25,7 +25,7 @@ module AdRoll
           call_api(:put, __method__, params)
         end
 
-        def get(user: )
+        def get(user:)
           params = {
             user: user
           }.reject { |_, value| value.nil? }
@@ -33,8 +33,7 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def grant(u: , advertisables: , organization_role: )
-
+        def grant(u:, advertisables:, organization_role:)
           params = {
             u: u,
             advertisables: advertisables,
