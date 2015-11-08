@@ -15,7 +15,11 @@ module AdRoll
         response = HTTParty.send(request_method, request_uri,
                                  basic_auth: basic_auth, query: query_params)
 
-        JSON.parse(response.body).fetch('results', {})
+        begin
+          JSON.parse(response.body).fetch('results', {})
+        rescue JSON::ParserError
+          {error: 'JSON::ParserError', response: response.body}
+        end
       end
 
       private_class_method :service_url, :basic_auth, :call_api
