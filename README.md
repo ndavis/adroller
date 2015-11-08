@@ -1,7 +1,26 @@
-Adroller: An API Wrapper for AdRoll
+# Adroller: An API Wrapper for AdRoll
 ========
 
 ![alt tag](https://upload.wikimedia.org/wikipedia/commons/8/86/AdRoll.png)
+
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'adroller'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install adroller
+
+## Usage
 
 General Info
 ============
@@ -23,38 +42,31 @@ ENV['ADROLL_PASSWORD'] = 'Your Password'
 
 ENV['ADROLL_ORGANIZATION'] = 'Your Organization eid'
 
-Usage
-=======
+Method Calls
+============
 
 This gem uses basic abstraction for the AdRoll services
 
-A method call will return a JSON response directly from the api 
+A method call will return a JSON response directly from the api
 
 AdRoll::Api::{Endpoint Name}.{Endpoint Method}({Endpoint Parameters})
 
 Example
 =========
+params = {
 
-params = { 
+    name: 'My Advertisable',
 
-name: 'My Advertisable',
+    organization: 'FDS32DFA3DK341B4KAL4RK',
 
-organization: 'FDS32DFA3DK341B4KAL4RK',
+    set_as_default: true,
 
-set_as_default: true,
+    url: 'http://www.thisisaurl.com',
 
-url: 'http://www.thisisaurl.com',
+    product_name: 'My Product'
 
-product_name: 'My Product'
-
-}
+  }
 
 advertisable = AdRoll::Api::Advertisable.create(params)
 
-advertisable['eid'] => 'FAEBEKALEIB324R'
-
-advertisable['name'] => 'My Advertisable'
-
-advertisable['is_active'] => true
-
-...
+  => {:name => 'My Advertisable' ... }

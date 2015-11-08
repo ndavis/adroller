@@ -1,4 +1,4 @@
-require 'adroll'
+require 'adroller'
 require 'byebug'
 require 'factory_girl'
 require 'webmock/rspec'
