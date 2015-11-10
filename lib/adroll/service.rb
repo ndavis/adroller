@@ -18,7 +18,7 @@ module AdRoll
         begin
           JSON.parse(response.body).fetch('results', {})
         rescue JSON::ParserError
-          {error: 'JSON::ParserError', response: response.body}
+          { error: 'JSON::ParserError', response: response.body }
         end
       end
 

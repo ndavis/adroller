@@ -1,5 +1,5 @@
-require "adroller/version"
-require "adroll"
+require 'adroller/version'
+require 'adroll'
 
 module Adroller
 end
