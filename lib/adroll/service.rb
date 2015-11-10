@@ -13,7 +13,7 @@ module AdRoll
         request_uri = File.join(service_url, endpoint.to_s)
 
         response = HTTParty.send(request_method, request_uri,
-                                 basic_auth: basic_auth, query: query_params)
+                                 basic_auth: basic_auth, body: query_params)
 
         begin
           JSON.parse(response.body).fetch('results', {})
