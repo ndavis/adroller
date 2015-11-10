@@ -16,7 +16,7 @@ module AdRoll
                                  basic_auth: basic_auth, body: query_params)
 
         begin
-          JSON.parse(response.body).fetch('results', {})
+          JSON.parse(response.body)
         rescue JSON::ParserError
           { error: 'JSON::ParserError', response: response.body }
         end
