@@ -26,7 +26,7 @@ describe AdRoll::Api::Advertisable do
 
     it 'calls the api with the correct params' do
       subject.create(params)
-      expect(WebMock).to have_requested(:post, request_uri).with(query: escaped_params)
+      expect(WebMock).to have_requested(:post, request_uri).with(body: escaped_params)
     end
   end
 
@@ -39,7 +39,7 @@ describe AdRoll::Api::Advertisable do
         name: 'advertisable test',
         url: 'https://url.com',
         product_name: 'product_name',
-        view_through_conversion_window: 30
+        view_through_conversion_window: '30'
       }
     end
 
@@ -50,7 +50,7 @@ describe AdRoll::Api::Advertisable do
 
     it 'calls the api with the correct params' do
       subject.edit(params)
-      expect(WebMock).to have_requested(:put, request_uri).with(query: escaped_params)
+      expect(WebMock).to have_requested(:put, request_uri).with(body: escaped_params)
     end
   end
 

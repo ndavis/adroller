@@ -19,7 +19,7 @@ describe AdRoll::Api::Ad do
 
     it 'calls the api with the correct params' do
       subject.clone(name: 'name', headline: 'headline', body: 'body')
-      expect(WebMock).to have_requested(:post, request_uri).with(query: params)
+      expect(WebMock).to have_requested(:post, request_uri).with(body: params)
     end
   end
 
@@ -28,13 +28,13 @@ describe AdRoll::Api::Ad do
     let!(:params) do
       { advertisable: 'advertisable',
         file: 'ANBLE5432',
-        dynamic_template_id: 1
+        dynamic_template_id: '1'
       }
     end
 
     it 'calls the api with the correct params' do
       subject.create(advertisable: 'advertisable', file: 'ANBLE5432', dynamic_template_id: 1)
-      expect(WebMock).to have_requested(:post, request_uri).with(query: params)
+      expect(WebMock).to have_requested(:post, request_uri).with(body: params)
     end
   end
 
@@ -46,7 +46,7 @@ describe AdRoll::Api::Ad do
 
     it 'calls the api with the correct params' do
       subject.edit(ad: 'AD123')
-      expect(WebMock).to have_requested(:put, request_uri).with(query: params)
+      expect(WebMock).to have_requested(:put, request_uri).with(body: params)
     end
   end
 

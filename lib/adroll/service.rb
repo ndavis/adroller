@@ -12,8 +12,13 @@ module AdRoll
       def self.call_api(request_method, endpoint, query_params)
         request_uri = File.join(service_url, endpoint.to_s)
 
-        response = HTTParty.send(request_method, request_uri,
-                                 basic_auth: basic_auth, query: query_params, debug_output: Rails.logger)
+        if request_method == :get
+          response = HTTParty.send(request_method, request_uri,
+                                   basic_auth: basic_auth, query: query_params, debug_output: $stdout)
+        else
+          response = HTTParty.send(request_method, request_uri,
+                                   basic_auth: basic_auth, body: query_params, debug_output: $stdout)
+        end
 
         begin
           JSON.parse(response.body)
