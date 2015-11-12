@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 1.18', '>= 1.18.0'
   spec.add_development_dependency 'factory_girl', '~> 4.4', '>= 4.4.0'
   spec.add_dependency 'httparty', '~> 0.13.1'
+  spec.add_dependency 'httmultiparty', '~> 0.3.13'
 end

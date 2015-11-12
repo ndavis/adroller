@@ -16,8 +16,14 @@ module AdRoll
           response = HTTParty.send(request_method, request_uri,
                                    basic_auth: basic_auth, query: query_params, debug_output: $stdout)
         else
-          response = HTTParty.send(request_method, request_uri,
-                                   basic_auth: basic_auth, body: query_params, debug_output: $stdout)
+          if request_uri == 'https://api.adroll.com/v1/ad/create'
+            response = HTTMultiParty.send(request_method, request_uri,
+                                          basic_auth: basic_auth, body: query_params, debug_output: $stdout)
+
+          else
+            response = HTTParty.send(request_method, request_uri,
+                                     basic_auth: basic_auth, body: query_params, debug_output: $stdout)
+          end
         end
 
         begin

@@ -1,4 +1,5 @@
 require 'httparty'
+require 'httmultiparty'
 
 require 'adroll/ad'
 require 'adroll/adgroup'
