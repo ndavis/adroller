@@ -15,7 +15,7 @@ module AdRoll
           call_api(:post, __method__, params)
         end
 
-        def create(advertisable:, file:, dynamic_template_id:, destination_url: nil, name: nil,
+        def create(advertisable:, file:, dynamic_template_id: nil, destination_url: nil, name: nil,
                    headline: nil, body: nil, message: nil, product: nil, logo: nil, background: nil)
           params = {
             advertisable: advertisable,
