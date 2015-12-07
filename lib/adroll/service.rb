@@ -2,7 +2,7 @@ module AdRoll
   module Api
     class Service
       def self.service_url
-        File.join(AdRoll::Api.base_url, to_s.underscore)
+        File.join(AdRoll::Api.base_url, to_s.demodulize.underscore)
       end
 
       def self.basic_auth
