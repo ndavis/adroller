@@ -64,7 +64,20 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def get_ads(advertisable:, is_active: true, statuses: nil, types: nil, width: nil, height: nil)
+        def get_ads(advertisable:, is_active: nil, statuses: nil, types: nil, width: nil, height: nil)
+          params = {
+            advertisable: advertisable,
+            is_active: is_active,
+            statuses: statuses,
+            types: types,
+            width: width,
+            height: height
+          }.reject { |_, value| value.nil? }
+
+          call_api(:get, __method__, params)
+        end
+
+        def get_ads_fast(advertisable:, is_active: nil, statuses: nil, types: nil, width: nil, height: nil)
           params = {
             advertisable: advertisable,
             is_active: is_active,
