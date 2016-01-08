@@ -158,7 +158,7 @@ module AdRoll
             adgroup: adgroup
           }.reject { |_, value| value.nil? }
 
-          call_api(:get, __method__, params)
+          call_api(:post, __method__, params)
         end
 
         def pause_ad(adgroup:, ad:)
@@ -167,7 +167,7 @@ module AdRoll
             ad: ad
           }.reject { |_, value| value.nil? }
 
-          call_api(:get, __method__, params)
+          call_api(:post, __method__, params)
         end
 
         def pause_ads(adgroup:, ads:)
