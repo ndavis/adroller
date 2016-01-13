@@ -47,8 +47,8 @@ module AdRoll
           call_api(:get, __method__, params)
         end
 
-        def get_adgroups(advertisable:, camp_active: true, camp_statuses: nil, camp_blacklist_statuses: nil,
-                         camp_type: nil, statuses: %w(approved admin_review paused admin_paused),
+        def get_adgroups(advertisable:, camp_active: nil, camp_statuses: nil, camp_blacklist_statuses: nil,
+                         camp_type: nil, statuses: nil,
                          blacklist_statuses: nil)
 
           params = {

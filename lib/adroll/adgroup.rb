@@ -176,7 +176,7 @@ module AdRoll
             ads: ads
           }.reject { |_, value| value.nil? }
 
-          call_api(:get, __method__, params)
+          call_api(:post, __method__, params)
         end
 
         def remove_placement_target(adgroup:, placement:)
@@ -223,7 +223,7 @@ module AdRoll
             adgroup: adgroup
           }.reject { |_, value| value.nil? }
 
-          call_api(:get, __method__, params)
+          call_api(:post, __method__, params)
         end
 
         def unpause_ad(adgroup:, ad:)
@@ -232,7 +232,7 @@ module AdRoll
             ad: ad
           }.reject { |_, value| value.nil? }
 
-          call_api(:get, __method__, params)
+          call_api(:post, __method__, params)
         end
 
         def unpause_ads(adgroup:, ads:)
@@ -241,7 +241,7 @@ module AdRoll
             ads: ads
           }.reject { |_, value| value.nil? }
 
-          call_api(:get, __method__, params)
+          call_api(:post, __method__, params)
         end
       end
     end
